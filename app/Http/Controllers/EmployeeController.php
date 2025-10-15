@@ -10,14 +10,9 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Employee::all();
-
-        return response()->json([
-            'success' => true,
-            'count' => $employees->count(),
-            'data' => $employees
-        ]);
+        return response()->json(Employee::all());
     }
+
 
     public function show($id)
     {
@@ -31,8 +26,7 @@ class EmployeeController extends Controller
         }
 
         return response()->json([
-            'success' => true,
-            'data' => $employee
+             $employee
         ]);
     }
 
@@ -41,9 +35,9 @@ class EmployeeController extends Controller
         $url = 'https://test-veritech-hr-api-main-wb2ody.laravel.cloud/api/employees';
 
         $response = Http::withOptions([
-            'verify' => false, // SSL шалгалтыг түр хаах
+            'verify' => false,
             'curl' => [
-                CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2, // TLS хувилбарыг заах
+                CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2,
             ],
         ])->get($url);
 
