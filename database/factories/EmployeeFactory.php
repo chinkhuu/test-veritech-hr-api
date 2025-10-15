@@ -21,9 +21,9 @@ class EmployeeFactory extends Factory
         $firstNames = ['Эрдэнэ', 'Энх', 'Саруул', 'Мөнх', 'Оюун', 'Болд', 'Төгөлдөр', 'Хангай', 'Номин', 'Тамир'];
         $ethnicity = ['Халх', 'Буриад', 'Дарьганга', 'Баяд', 'Өөлд', 'Урианхай', 'Дөрвөд'];
 
-        $gender = $this->faker->randomElement(['эрэгтэй', 'эмэгтэй']);
-        $lastname = $this->faker->randomElement($familyNames);
-        $firstname = $this->faker->randomElement($firstNames);
+        $gender = fake()->randomElement(['эрэгтэй', 'эмэгтэй']);
+        $lastname = fake()->randomElement($familyNames);
+        $firstname = fake()->randomElement($firstNames);
 
         return [
             'profile' => null,
@@ -31,22 +31,30 @@ class EmployeeFactory extends Factory
             'lastname' => $lastname,
             'firstname' => $firstname,
             'nationality' => 'Монгол',
-            'ethnicity' => $this->faker->randomElement($ethnicity),
+            'ethnicity' => fake()->randomElement($ethnicity),
             'gender' => $gender,
-            'birth_date' => $this->faker->dateTimeBetween('-50 years', '-20 years')->format('Y-m-d'),
-            'date_of_employment' => $this->faker->dateTimeBetween('-10 years', 'now')->format('Y-m-d'),
+            'birth_date' => fake()->dateTimeBetween('-50 years', '-20 years')->format('Y-m-d'),
+            'date_of_employment' => fake()->dateTimeBetween('-10 years', 'now')->format('Y-m-d'),
             'registration_number' => strtoupper(substr($lastname, 0, 2)) .
-                $this->faker->numberBetween(10000000, 99999999),
-            'address' => $this->faker->address(),
-            'temp_address' => $this->faker->optional()->address(),
-            'phone_number' => '99' . $this->faker->numberBetween(100000, 999999),
-            'taxpayer_number' => $this->faker->optional()->numerify('##########'),
-            'email' => $this->faker->unique()->safeEmail(),
+                fake()->numberBetween(10000000, 99999999),
+            'address' => fake()->address(),
+            'temp_address' => fake()->optional()->address(),
+            'phone_number' => '99' . fake()->numberBetween(100000, 999999),
+            'taxpayer_number' => fake()->optional()->numerify('##########'),
+            'email' => fake()->unique()->safeEmail(),
             'password' => Hash::make('password'),
-            'account_bank_name' => $this->faker->randomElement(['Хаан банк', 'Голомт банк', 'Төрийн банк', 'Худалдаа хөгжлийн банк']),
-            'account_number' => $this->faker->numerify('##########'),
-            'occupation' => $this->faker->randomElement([
-                'Нягтлан бодогч', 'Менежер', 'Хөгжүүлэгч', 'Багш', 'Инженер', 'Маркетингийн мэргэжилтэн', 'Хүний нөөцийн ажилтан'
+            'account_bank_name' => fake()->randomElement([
+                'Хаан банк', 'Голомт банк', 'Төрийн банк', 'Худалдаа хөгжлийн банк'
+            ]),
+            'account_number' => fake()->numerify('##########'),
+            'occupation' => fake()->randomElement([
+                'Нягтлан бодогч',
+                'Менежер',
+                'Хөгжүүлэгч',
+                'Багш',
+                'Инженер',
+                'Маркетингийн мэргэжилтэн',
+                'Хүний нөөцийн ажилтан'
             ]),
         ];
     }
